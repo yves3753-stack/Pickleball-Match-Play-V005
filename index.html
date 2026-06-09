@@ -80,6 +80,15 @@
       if (n < 4) return [];
 
       const playerIds = activePlayers.map(p => p.id);
+      
+      // Shuffle player IDs using Fisher-Yates algorithm to ensure unique matchmaking combinations on every generation
+      for (let i = playerIds.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        const temp = playerIds[i];
+        playerIds[i] = playerIds[j];
+        playerIds[j] = temp;
+      }
+
       const playCounts = {};
       playerIds.forEach(id => {
         playCounts[id] = 0;
